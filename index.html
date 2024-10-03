@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Todo App</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="main">
+      <div class="todo-box">
+        <h1 class="heading">Todo App</h1>
+        <div style="display: flex; align-items: center; width: 100%">
+          <input
+            type="text"
+            class="inputField"
+            placeholder="Enter the task..."
+          />
+          <button class="add-btn">Add</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      let inputField = document.querySelector(".inputField");
+      let addbtn = document.querySelector(".add-btn");
+
+      addbtn.addEventListener("click", function () {
+        if (inputField.value == "") {
+          alert("Enter some task first");
+        } else {
+          const todoList = document.createElement("div");
+          todoList.className = "todoList";
+          todoList.innerHTML = `<span>${inputField.value}</span>`;
+
+          const delImg = document.createElement("img");
+          delImg.className = "img";
+          delImg.src = "icons8-delete.svg";
+          todoList.appendChild(delImg);
+
+          const taskText = todoList.querySelector("span");
+          taskText.addEventListener("click", function () {
+            taskText.classList.toggle("complete");
+          });
+
+          delImg.addEventListener("click", function () {
+            todoList.style.animation = "fadeOut 0.5s forwards";
+            setTimeout(() => todoList.remove(), 500);
+          });
+
+          const ele = document.querySelector(".todo-box");
+          ele.appendChild(todoList);
+          inputField.value = "";
+        }
+      });
+    </script>
+  </body>
+</html>
